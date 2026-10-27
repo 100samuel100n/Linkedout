@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+/* Rebranded to match the LinkedOut door mark (see app/icon.png): a dark
+   navy base with a vivid blue accent, replacing the earlier mustard/
+   cream "redacted document" palette. Dark is the default (matches the
+   logo, which is designed for a dark background, and is what renders
+   before any client-side theme detection runs, avoiding a flash of the
+   wrong theme). :root[data-theme="light"] below overrides these for
+   light mode. See lib/theme-context.js for how data-theme gets set, and
+   the inline script in app/layout.js for why it's set before hydration,
+   not after. */
+:root {
+  /* ---- Surfaces: four layered steps, each clearly lighter than the one below ---- */
+  --lo-ink: #0A0F1E;        /* app background */
+  --lo-surface: #111A2E;    /* cards, panels */
+  --lo-surface2: #182440;   /* inputs, wells, hover rows */
+  --lo-surface3: #213052;   /* raised / selected / popovers */
+  --lo-line: #1E2A47;       /* hairline borders */
+  --lo-line2: #2C3C63;      /* stronger borders (inputs, focus-adjacent) */
+  --lo-paper: #E8E1CE;
+  /* ---- Text: three levels ---- */
+  --lo-text: #EEF1F9;
+  --lo-text2: #C2CADF;
+  --lo-muted: #8E9BBA;
+  /* ---- Accent: indigo-blue, used for actions and selection only ---- */
+  --lo-mustard: #4C61FF;    /* historical name; this is the primary accent */
+  --lo-accent2: #7058F6;    /* second stop for gradients */
+  --lo-accent-soft: rgba(76, 97, 255, 0.14);
+  --lo-corpblue: #5B7BB8;
+  --lo-flag: #E5604F;
+  --lo-green: #3FB67B;
+  --lo-amber: #E3A93B;
+  --lo-grad: linear-gradient(135deg, #5468FF 0%, #6C57F5 100%);
+  --lo-sunken: rgba(3, 7, 20, 0.28);
+  --lo-grain: transparent;
+  /* ---- Shape & depth ---- */
+  --lo-r-sm: 8px; --lo-r-md: 12px; --lo-r-lg: 16px; --lo-r-xl: 20px;
+  --lo-shadow-1: 0 1px 2px rgba(2, 6, 20, 0.35), 0 1px 1px rgba(2, 6, 20, 0.2);
+  --lo-shadow-2: 0 8px 24px rgba(2, 6, 20, 0.45), 0 2px 6px rgba(2, 6, 20, 0.3);
+  --lo-ring: 0 0 0 3px rgba(76, 97, 255, 0.35);
+  color-scheme: dark;
+
+  --background: var(--lo-ink);
+  --foreground: var(--lo-text);
+}
+
+:root[data-theme="light"] {
+  --lo-ink: #F4F6FB;
+  --lo-surface: #FFFFFF;
+  --lo-surface2: #F0F3FA;
+  --lo-surface3: #E6EBF6;
+  --lo-line: #E3E8F2;
+  --lo-line2: #CBD3E4;
+  --lo-paper: #E8E1CE;
+  --lo-text: #0F172A;
+  --lo-text2: #38435C;
+  --lo-muted: #5B6783;
+  /* Accent is identical in both themes: it is always paired with white text. */
+  --lo-mustard: #4C61FF;
+  --lo-accent2: #7058F6;
+  --lo-accent-soft: rgba(76, 97, 255, 0.1);
+  --lo-corpblue: #3E5A92;
+  --lo-flag: #C8412F;
+  --lo-green: #2C8A5B;
+  --lo-amber: #B7791F;
+  --lo-sunken: rgba(15, 23, 42, 0.05);
+  --lo-shadow-1: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --lo-shadow-2: 0 10px 28px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.08);
+  --lo-ring: 0 0 0 3px rgba(76, 97, 255, 0.28);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--lo-font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif);
+  font-size: 15px; line-height: 1.55;
+  font-feature-settings: "cv11", "ss01", "tnum" 0;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;
+}
+::selection { background: rgba(76, 97, 255, 0.35); }
+* { scrollbar-width: thin; scrollbar-color: var(--lo-line2) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--lo-line2); border-radius: 10px; border: 3px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--lo-muted); background-clip: content-box; border: 3px solid transparent; }
+h1, h2, h3 { letter-spacing: -0.015em; text-wrap: balance; }
+p { text-wrap: pretty; }
+::placeholder { color: var(--lo-muted); opacity: 0.85; }
+
+/* Smooth, quiet state changes on everything interactive. */
+button, a, input, textarea, select, [role="button"], [data-lo-surface] {
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.12s ease,
+    box-shadow 0.16s ease, transform 0.1s ease, opacity 0.14s ease, filter 0.14s ease;
+}
+button:not(:disabled), [role="button"]:not([aria-disabled="true"]) { cursor: pointer; }
+button:not(:disabled):active, [role="button"]:not([aria-disabled="true"]):active { transform: scale(0.98); }
+@media (hover: hover) and (pointer: fine) {
+  button:not(:disabled):hover, [role="button"]:not([aria-disabled="true"]):hover { filter: brightness(1.08); }
+  a:hover { filter: brightness(1.1); }
+}
+button:disabled, [aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
+
+/* One consistent, accessible focus treatment. */
+button:focus-visible, a:focus-visible, [role="button"]:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: none; box-shadow: var(--lo-ring);
+}
+input:focus, textarea:focus, select:focus {
+  outline: none !important; border-color: var(--lo-mustard) !important; box-shadow: var(--lo-ring) !important;
+}
+input, textarea, select { font-family: inherit; font-size: 15px; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--lo-mustard); }
+
+/* Depth: any element whose inline style paints the card/surface colour gets the
+   standard card elevation, so every page shares one level of depth. */
+[style*="background: var(--lo-surface);"] { box-shadow: var(--lo-shadow-1); }
+[style*="background: var(--lo-surface);"][role="dialog"], [role="dialog"][style*="background: var(--lo-surface"] { box-shadow: var(--lo-shadow-2); }
+
+/* ---- Shared component classes (used by the new UI kit) ---- */
+.lo-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 14px; line-height: 1; padding: 0 16px; min-height: 40px; border-radius: 10px; border: 1px solid transparent; white-space: nowrap; user-select: none; }
+.lo-btn-sm { min-height: 34px; padding: 0 12px; font-size: 13px; border-radius: 9px; }
+.lo-btn-lg { min-height: 46px; padding: 0 22px; font-size: 15px; }
+.lo-btn-primary { color: #fff; background: var(--lo-grad); box-shadow: 0 1px 2px rgba(20, 30, 110, 0.35), inset 0 1px 0 rgba(255,255,255,0.14); }
+.lo-btn-secondary { color: var(--lo-text); background: var(--lo-surface2); border-color: var(--lo-line2); }
+.lo-btn-ghost { color: var(--lo-text2); background: transparent; }
+.lo-btn-ghost:hover { background: var(--lo-surface2); }
+.lo-btn-danger { color: #fff; background: var(--lo-flag); }
+.lo-field { width: 100%; min-height: 42px; padding: 10px 12px; font-size: 15px; color: var(--lo-text); background: var(--lo-surface2); border: 1px solid var(--lo-line2); border-radius: 10px; }
+.lo-label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--lo-text2); }
+.lo-help { margin-top: 6px; font-size: 13px; color: var(--lo-muted); line-height: 1.45; }
+.lo-card { background: var(--lo-surface); border: 1px solid var(--lo-line); border-radius: var(--lo-r-lg); box-shadow: var(--lo-shadow-1); }
+.lo-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--lo-muted); }
+.lo-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; font-size: 12px; font-weight: 600; border-radius: 6px; background: var(--lo-surface2); color: var(--lo-text2); }
+.lo-badge-accent { background: var(--lo-accent-soft); color: var(--lo-mustard); }
+.lo-row-hover:hover { background: var(--lo-surface2); }
+.lo-divider { height: 1px; background: var(--lo-line); border: 0; }
+
+/* Segmented tabs */
+.lo-tabs { display: inline-flex; gap: 2px; padding: 3px; background: var(--lo-surface2); border-radius: 11px; }
+.lo-tab { padding: 7px 14px; font-size: 14px; font-weight: 600; color: var(--lo-muted); border-radius: 8px; background: transparent; border: 0; }
+.lo-tab[aria-selected="true"] { color: var(--lo-text); background: var(--lo-surface); box-shadow: var(--lo-shadow-1); }
+
+/* Message bubbles */
+.lo-bubble { max-width: min(78%, 520px); padding: 9px 13px; font-size: 15px; line-height: 1.45; border-radius: 18px; word-break: break-word; white-space: pre-wrap; }
+.lo-bubble-mine { color: #fff; background: var(--lo-grad); border-bottom-right-radius: 6px; }
+.lo-bubble-theirs { color: var(--lo-text); background: var(--lo-surface2); border: 1px solid var(--lo-line); border-bottom-left-radius: 6px; }
+
+/* Route-level transition — wraps each page's content (see
+   components/RouteTransition.jsx) so navigating between tabs/pages
+   fades and lifts in instead of popping instantaneously. */
+.lo-route-enter {
+  animation: lo-fade-up 0.22s ease both;
+}
+
+/* Generic entrance for cards/list items appearing (new post arriving,
+   modal content mounting, etc). */
+.lo-enter {
+  animation: lo-fade-up 0.22s ease both;
+}
+
+/* ---- Loading system ---- */
+.lo-skeleton { position: relative; overflow: hidden; background: var(--lo-surface2); border-radius: 8px; }
+.lo-skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--lo-text) 7%, transparent), transparent); animation: lo-shimmer 1.5s ease-in-out infinite; }
+@keyframes lo-shimmer { 100% { transform: translateX(100%); } }
+.lo-spinner { width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid var(--lo-line2); border-top-color: var(--lo-mustard); animation: lo-spin 0.8s linear infinite; }
+.lo-spinner-sm { width: 16px; height: 16px; border-width: 2px; }
+.lo-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200; background: transparent; overflow: hidden; }
+.lo-progress::after { content: ""; display: block; height: 100%; width: 40%; background: var(--lo-grad); animation: lo-bar 1.1s ease-in-out infinite; }
+@keyframes lo-bar { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+
+/* Toast / inline-notice slide-in (see components/Toast.jsx) */
+@keyframes lo-toast-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.lo-toast {
+  animation: lo-toast-in 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+/* Scale-tap helper for elements that need a slightly stronger press
+   response than the global button rule (primary CTAs, reaction icons). */
+.lo-tap:active {
+  transform: scale(0.94);
+}
+
+@keyframes lo-pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes lo-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lo-spin {
+  to { transform: rotate(360deg); }
+}
+.lo-spin {
+  animation: lo-spin 0.7s linear infinite;
+}
+
+/* Respect reduced-motion preferences: keep the state changes, drop the
+   animated journey between them. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes lo-typing { 0%, 60%, 100% { transform: translateY(0); opacity: .4; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+/* Interaction row (like / reply / repost / bookmark / share / report):
+   icon-only, roomy tap targets, instant press feedback, never overlaps. */
+.lo-act { display: inline-flex; align-items: center; gap: 4px; min-width: 36px; min-height: 34px; padding: 0 8px; justify-content: center; background: none; border: none; border-radius: 999px; color: var(--lo-muted); cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.lo-act { transition: background .15s ease, color .15s ease, transform .1s ease; }
+.lo-act:hover { background: color-mix(in srgb, var(--lo-mustard) 12%, transparent); color: var(--lo-mustard); }
+.lo-act:active { transform: scale(0.88); }
+.lo-chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: transparent; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.lo-chip:active { transform: scale(0.92); }
+@keyframes lo-pop { 0% { transform: scale(0.6); } 60% { transform: scale(1.3); } 100% { transform: scale(1); } }
+.lo-pop { animation: lo-pop 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.3); }
+
+/* ---- Cross-cutting refinements for legacy inline-styled controls ---- */
+button[style*="background: var(--lo-mustard)"], a[style*="background: var(--lo-mustard)"] { background-image: var(--lo-grad); border-color: transparent; }
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]), textarea, select { font-size: 15px !important; }
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]), select { min-height: 40px; }
+select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238E9BBA' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 34px !important; }
+table { font-variant-numeric: tabular-nums; }
+img { image-rendering: auto; }
+@media (max-width: 767px) { .lo-route-enter { padding-bottom: 96px; } }
+
+/* Logo: white mark on dark themes, navy twin on light (swapped with the theme). */
+.lo-logo-onLight { display: none !important; }
+:root[data-theme="light"] .lo-logo-onDark { display: none !important; }
+:root[data-theme="light"] .lo-logo-onLight { display: block !important; }
+
+/* Spinner inside a solid-coloured button */
+.lo-on-color .lo-spinner { border-color: rgba(255,255,255,.35); border-top-color: #fff; }
+
+/* ---- Desktop sidebar: scrollable nav + the primary action button ---- */
+.lo-side-scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%); padding: 10px 0 18px; }
+.lo-side-scroll::-webkit-scrollbar { display: none; width: 0; height: 0; }
+/* Icon rail on medium screens; full labelled sidebar from xl up so no label is ever cut off. */
+.lo-sidebar { width: 88px; }
+@media (min-width: 1280px) { .lo-sidebar { width: 264px; padding-left: 14px !important; padding-right: 14px !important; } }
+/* Primary action: one solid gradient pill, icon and label as a single unit. */
+.lo-side-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; padding: 0 20px; border: 0; border-radius: 999px; cursor: pointer;
+  font: inherit; font-size: 15px; font-weight: 700; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; text-decoration: none; color: #fff;
+  background: var(--lo-grad); position: relative; overflow: hidden;
+  box-shadow: 0 1px 2px rgba(20, 30, 110, 0.35), 0 10px 22px -10px rgba(76, 97, 255, 0.75), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.12);
+  transition: transform .12s ease, filter .15s ease, box-shadow .15s ease; }
+.lo-side-cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.16), transparent 55%); pointer-events: none; }
+.lo-side-cta svg { flex-shrink: 0; }
+.lo-side-cta:hover { filter: brightness(1.07); transform: translateY(-1px); }
+.lo-side-cta:active { transform: translateY(0) scale(0.985); }
+.lo-side-cta:focus-visible { outline: 2px solid var(--lo-mustard); outline-offset: 3px; }
+@media (max-width: 1279px) { .lo-side-cta { width: 48px; padding: 0; } }
+
+/* ---- Live presence ---- */
+.lo-live-dot { position: relative; display: inline-block; width: 10px; height: 10px; flex-shrink: 0; vertical-align: middle; }
+.lo-live-dot::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--lo-green); box-shadow: 0 0 0 0 color-mix(in srgb, var(--lo-green) 55%, transparent); animation: lo-pulse 1.8s ease-out infinite; }
+.lo-live-dot::after { content: ""; position: absolute; inset: 2px; border-radius: 50%; background: var(--lo-green); }
+.lo-live-dot[data-off="true"]::before { animation: none; background: var(--lo-line2); box-shadow: none; }
+.lo-live-dot[data-off="true"]::after { background: var(--lo-muted); opacity: .55; }
+.lo-live-dot[data-size="lg"] { width: 14px; height: 14px; }
+@keyframes lo-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lo-green) 60%, transparent); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+@keyframes lo-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes lo-bump { 0% { transform: scale(1); } 40% { transform: scale(1.08); } 100% { transform: scale(1); } }
+.lo-rise { animation: lo-rise .35s ease both; }
+.lo-bump { animation: lo-bump .4s ease; }
+.lo-adm-card { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.lo-adm-card:hover { transform: translateY(-2px); border-color: var(--lo-line2); box-shadow: var(--lo-shadow-1); }
+@media (prefers-reduced-motion: reduce) { .lo-live-dot::before, .lo-rise, .lo-bump { animation: none; } .lo-adm-card { transition: none; } }
+
+/* Admin: tactile buttons and inputs */
+main button { transition: background .15s ease, border-color .15s ease, transform .1s ease, filter .15s ease, box-shadow .15s ease; }
+main button:not(:disabled):hover { filter: brightness(1.08); }
+main button:not(:disabled):active { transform: scale(0.97); }
+main button:disabled { cursor: not-allowed; }
+main input:focus-visible, main textarea:focus-visible { outline: 2px solid var(--lo-mustard); outline-offset: 1px; border-color: transparent !important; }
+main table tbody tr { transition: background .12s ease; }
+
+/* iOS Safari: pad the page by the keyboard height published by components/KeyboardInsets.jsx */
+body { padding-bottom: var(--lo-kb, 0px); }

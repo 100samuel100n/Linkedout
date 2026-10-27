@@ -1,0 +1,2 @@
+export const metadata = { title: "Support Circles for workplace experiences", description: "Small anonymous communities for people who were laid off, burned out, ghosted or managed badly. Join one or start your own.", alternates: { canonical: "/circles" }, openGraph: { title: "Support Circles for workplace experiences", description: "Small anonymous communities for people who were laid off, burned out, ghosted or managed badly. Join one or start your own.", type: "website" } };
+export default function Layout({ children }) { return children; }

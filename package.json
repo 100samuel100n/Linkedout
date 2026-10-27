@@ -1,0 +1,43 @@
+{
+  "name": "linkedout-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "seed": "node --env-file=.env.production.local scripts/seed-content.js",
+    "seed:engagement": "node --env-file=.env.production.local scripts/seed-engagement.js",
+    "scrub:brand": "node --env-file=.env.production.local scripts/scrub-brand.js",
+    "seed:images": "node --env-file=.env.production.local scripts/reattach-post-images.js",
+    "make-staff": "node --env-file=.env.local scripts/make-staff.js",
+    "break-glass:request": "node scripts/break-glass-request.js",
+    "break-glass:approve": "node scripts/break-glass-approve.js",
+    "sast": "node scripts/sast.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.699.0",
+    "@aws-sdk/s3-request-presigner": "^3.699.0",
+    "@simplewebauthn/browser": "11.0.0",
+    "@simplewebauthn/server": "^14.0.3",
+    "bcryptjs": "^3.0.3",
+    "livekit-client": "*",
+    "livekit-server-sdk": "*",
+    "lucide-react": "^1.28.0",
+    "next": "^16.4.2",
+    "pdf-parse": "1.1.1",
+    "pg": "^8.13.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "resend": "^6.18.1",
+    "stripe": "^22.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.35",
+    "tailwindcss": "^4"
+  }
+}

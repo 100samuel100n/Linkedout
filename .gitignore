@@ -1,0 +1,9 @@
+node_modules
+.next
+.env*.local
+.env*.production.local
+data/*.db
+data/*.db-*
+# Verification documents can contain ID photos — never committed,
+# regardless of how the rest of data/ is handled.
+data/verification-docs/
