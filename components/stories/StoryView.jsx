@@ -1,5 +1,8 @@
 "use client";
+<<<<<<< HEAD
 import HiringHint from "@/components/stories/HiringHint";
+=======
+>>>>>>> origin/main
 import { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,7 +18,10 @@ import Loading from "@/components/ui/Loading";
 import EmptyState from "@/components/ui/EmptyState";
 import Select from "@/components/ui/Select";
 import ShareSheet from "@/components/stories/ShareSheet";
+<<<<<<< HEAD
 import StoryResponses from "@/components/stories/StoryResponses";
+=======
+>>>>>>> origin/main
 
 const dot = { kind_incident: C.flag, kind_posted: C.mustard, kind_update: C.corpblue, kind_correction: C.mustard, kind_milestone: C.green, kind_response: C.corpblue };
 
@@ -104,7 +110,10 @@ function StoryPage({ id, initial }) {
         </div>}
 
         <MeTooBar story={s} />
+<<<<<<< HEAD
         {s.status === "published" && <StoryResponses id={id} />}
+=======
+>>>>>>> origin/main
       </article>
 
       {own && s.redactions && Object.keys(s.redactions).length > 0 && <div style={{ fontSize: 13, color: C.muted }}><ShieldAlert size={13} style={{ display: "inline", marginRight: 6 }} />We removed {Object.entries(s.redactions).map(([k, n]) => `${n} ${k}`).join(", ")} from your story before publishing.</div>}
@@ -119,7 +128,10 @@ function StoryPage({ id, initial }) {
         {own && <button onClick={del} className="lo-btn lo-btn-ghost lo-btn-sm" style={{ color: C.flag }}><Trash2 size={14} /> Delete</button>}
       </section>
 
+<<<<<<< HEAD
       {s.companyId && <HiringHint companyId={s.companyId} company={s.company} />}
+=======
+>>>>>>> origin/main
       {s.rooms?.length > 0 && <div className="lo-card flex items-center gap-3 flex-wrap" style={{ padding: 14, borderColor: alpha(C.mustard, 45) }}><Mic size={18} color={C.mustard} /><div style={{ flex: 1, fontSize: 14.5, color: C.text }}><b>Live now:</b> {s.rooms[0].topic}</div><Link href="/vent" className="lo-btn lo-btn-primary lo-btn-sm" style={{ textDecoration: "none" }}>Join the room</Link></div>}
       {share && <ShareSheet story={s} id={id} onClose={() => setShare(false)} />}
       {report && (

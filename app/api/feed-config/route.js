@@ -10,9 +10,13 @@ export async function GET() {
   const ann = await contentDb.prepare("SELECT id, title, body, severity, audience FROM announcements WHERE active = 1 AND (starts_at IS NULL OR starts_at <= ?) AND (ends_at IS NULL OR ends_at >= ?) ORDER BY created_at DESC LIMIT 3").all(now, now);
   const every = (v, d) => Math.min(50, Math.max(2, Number(v) || d));
   const mix = s.network_mix || "direct first";
+<<<<<<< HEAD
   const { jobsEnabled } = await import("@/lib/flags");
   return NextResponse.json({
     jobsEnabled: await jobsEnabled(),
+=======
+  return NextResponse.json({
+>>>>>>> origin/main
     adsEnabled: s.ads_enabled !== "0", adEvery: every(s.ad_every, 5), adAudience: s.ad_audience === "all" ? "all" : "free",
     adLabel: s.ad_label || "Sponsored", adStyle: s.ad_style_default || "card", mix,
     adsense: { enabled: s.adsense_enabled === "1" && mix !== "direct only" && !!s.adsense_client && !!s.adsense_slot, client: s.adsense_client || null, slot: s.adsense_slot || null, every: every(s.adsense_every, 7) },

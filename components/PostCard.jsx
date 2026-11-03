@@ -253,7 +253,11 @@ function PostCardInner({ post: initialPost, detailMode = false }) {
   }
 
   async function handleShare() {
+<<<<<<< HEAD
     const url = `${window.location.origin}/post/${post.id}`;   // a real page, so the link unfurls as a styled card (not the home-page hash)
+=======
+    const url = `${window.location.origin}/#post-${post.id}`;
+>>>>>>> origin/main
     try {
       if (navigator.share) {
         await navigator.share({ text: post.text?.slice(0, 100), url });

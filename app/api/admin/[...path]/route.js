@@ -14,7 +14,11 @@ import { throttle } from "@/lib/identity/throttle-http";
 //   POST users/:id/enforce | users/:id/plan | <section>/create | <section>/:rowId/:action
 // Every call below `me` and `2fa/*` requires a verified second factor.
 
+<<<<<<< HEAD
 const EXTRA_PERM = { "enforcements.revoke": "users.enforce.severe", "appeals.accepted": "appeals.handle", "appeals.rejected": "appeals.handle", "payments.set_plan": "payments.manage", "payments.cancel_sub": "payments.manage", "payments.refund": "payments.manage", "stories.purge": "users.enforce.severe", "advertisers.delete": "ads.review", "support.delete": "users.enforce.severe", "planlimits.set": "payments.manage", "planlimits.reset": "payments.manage", "companies.terminate": "users.enforce.severe", "history.undo": "users.enforce.severe", "distinstalls.kill": "distribution.respond", "distinstalls.restore": "distribution.respond" };
+=======
+const EXTRA_PERM = { "enforcements.revoke": "users.enforce.severe", "appeals.accepted": "appeals.handle", "appeals.rejected": "appeals.handle", "payments.set_plan": "payments.manage", "payments.cancel_sub": "payments.manage", "payments.refund": "payments.manage", "stories.purge": "users.enforce.severe", "advertisers.delete": "ads.review", "support.delete": "users.enforce.severe", "planlimits.set": "payments.manage", "planlimits.reset": "payments.manage", "companies.terminate": "users.enforce.severe" };
+>>>>>>> origin/main
 // Expected failures (validation, permission) carry a status and a safe message; anything else
 // is logged server-side and the caller only sees a generic line — never SQL, paths or stack traces.
 const fail = (e) => {
@@ -37,7 +41,11 @@ export async function GET(request, { params }) {
     const tf = await twoFactorState(staff.id);
     const base = { staff: true, role: staff.role, pseudonym: staff.pseudonym, twoFactor: tf };
     if (!tf.verified) return NextResponse.json(base);
+<<<<<<< HEAD
     return NextResponse.json({ ...base, permissions: permissionsFor(staff.role), sections: sectionsFor(staff.role).filter((s) => !(s.webOnly && request.headers.get("x-lo-client") === "native")), enforcementActions: ENFORCEMENT_ACTIONS });
+=======
+    return NextResponse.json({ ...base, permissions: permissionsFor(staff.role), sections: sectionsFor(staff.role), enforcementActions: ENFORCEMENT_ACTIONS });
+>>>>>>> origin/main
   }
   // NOTE: global search lives at "gsearch" — "search" is the Search Admin section (it used to be hijacked here).
   if (a === "badges" || a === "gsearch") {
@@ -241,8 +249,15 @@ export async function POST(request, { params }) {
     if (a === "staff" && staff.role !== "super_admin") return NextResponse.json({ error: "Only a super admin manages staff." }, { status: 403 });
     if (!ACT[a]) return NextResponse.json({ error: "Not supported." }, { status: 400 });
     const out = await ACT[a](staff, b, c, body);
+<<<<<<< HEAD
     const { _audited, ...rest } = out || {};
     if (c !== "document" && !_audited) await logStaff(staff, `${a}:${c}`, b, body.reason || body.note || body.role || null);
     return NextResponse.json({ ok: true, ...rest });
   } catch (e) { return fail(e); }
 }
+=======
+    if (c !== "document") await logStaff(staff, `${a}:${c}`, b, body.reason || body.note || body.role || null);
+    return NextResponse.json({ ok: true, ...(out || {}) });
+  } catch (e) { return fail(e); }
+}
+>>>>>>> origin/main

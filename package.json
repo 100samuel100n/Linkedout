@@ -15,8 +15,12 @@
     "make-staff": "node --env-file=.env.local scripts/make-staff.js",
     "break-glass:request": "node scripts/break-glass-request.js",
     "break-glass:approve": "node scripts/break-glass-approve.js",
+<<<<<<< HEAD
     "sast": "node scripts/sast.mjs",
     "test:dist": "node --import ./tests/register-hooks.mjs --test tests/attest.test.mjs tests/sign.test.mjs tests/flow.test.mjs tests/sql-lint.test.mjs tests/release.test.mjs tests/kill.test.mjs tests/webpush.test.mjs tests/bizplans.test.mjs"
+=======
+    "sast": "node scripts/sast.mjs"
+>>>>>>> origin/main
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.699.0",
@@ -33,8 +37,12 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "resend": "^6.18.1",
+<<<<<<< HEAD
     "stripe": "^22.4.0",
     "web-push": "^3.6.7"
+=======
+    "stripe": "^22.4.0"
+>>>>>>> origin/main
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -42,4 +50,8 @@
     "eslint-config-next": "^14.2.35",
     "tailwindcss": "^4"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

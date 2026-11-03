@@ -22,7 +22,11 @@ function Spark({ points }) {
 const Dir = ({ d }) => (d === "up" ? <TrendingUp size={18} color={C.green} /> : d === "down" ? <TrendingDown size={18} color={C.flag} /> : <Minus size={18} color={C.muted} />);
 
 export default function Overview({ id, meta, go }) {
+<<<<<<< HEAD
   const [d, setD] = useState(null); const [err, setErr] = useState(null); const [ai, setAi] = useState(null); const [aiBusy, setAiBusy] = useState(false);
+=======
+  const [d, setD] = useState(null); const [err, setErr] = useState(null);
+>>>>>>> origin/main
   useEffect(() => { api.suite(id, "overview").then(setD).catch((e) => setErr(e.message)); }, [id]);
   if (err) return <Err>{err}</Err>;
   if (!d) return <Loading variant="cards" />;
@@ -39,9 +43,12 @@ export default function Overview({ id, meta, go }) {
         {h.score == null && <div style={muted}>Health appears once at least 8 stories and 3 components have enough data. Until then there is nothing to score, and nothing is hidden from anyone.</div>}
       </Card>
 
+<<<<<<< HEAD
       {meta.features.ai_insights && <Card title="Summary for leadership" right={<button className="lo-btn lo-btn-secondary lo-btn-sm" disabled={aiBusy} onClick={async () => { setAiBusy(true); try { setAi(await api.suite(id, "ai")); } catch (e) { setAi({ text: e.message }); } setAiBusy(false); }}>{ai ? "Refresh" : "Write summary"}</button>}>
         {ai ? <div style={{ whiteSpace: "pre-wrap", fontSize: 14.5, color: C.text, lineHeight: 1.6 }}>{ai.text}{ai.ai ? "" : "\n(AI isn't available right now; this is the plain list of numbers.)"}</div> : <div style={muted}>A plain-language summary of this page for executives. It only restates what people reported.</div>}</Card>}
 
+=======
+>>>>>>> origin/main
       <Grid>
         <Stat label="Stories this month" value={d.counts.storiesMonth} sub={`${d.counts.storiesPrev} the month before`} />
         <Stat label="Unanswered stories" value={d.counts.unanswered} tone={d.counts.unanswered ? C.flag : undefined} sub="last 180 days" />

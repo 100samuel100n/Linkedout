@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { useRemoteFlags } from "@/components/useRemoteFlags";
+=======
+>>>>>>> origin/main
 import Link from "next/link";
 import { Search as SearchIcon, User, Building2, Briefcase, Mic, MessageSquare } from "lucide-react";
 import { C, monoFont, displayFont } from "@/lib/theme";
@@ -9,7 +12,11 @@ import Loading from "@/components/ui/Loading";
 
 // Jobs search tab is paused along with the Jobs page itself (see
 // components/Shell.jsx's JOBS_ENABLED) — flip both back together.
+<<<<<<< HEAD
 const JOBS_ENABLED = true; // build-time default; the live switch is useRemoteFlags
+=======
+const JOBS_ENABLED = false;
+>>>>>>> origin/main
 
 const CATEGORIES = [
   { key: "posts", label: "Posts", icon: MessageSquare },
@@ -28,7 +35,10 @@ function ResultRow({ children, href }) {
 }
 
 function SearchInner() {
+<<<<<<< HEAD
   const { jobsEnabled } = useRemoteFlags();
+=======
+>>>>>>> origin/main
   const [q, setQ] = useState("");
   const [results, setResults] = useState(null);
   const [category, setCategory] = useState("posts");
@@ -75,7 +85,11 @@ function SearchInner() {
       </div>
 
       <div className="flex gap-2 flex-wrap">
+<<<<<<< HEAD
         {CATEGORIES.filter((c) => c.key !== "jobs" || jobsEnabled).map((c) => {
+=======
+        {CATEGORIES.map((c) => {
+>>>>>>> origin/main
           const Icon = c.icon;
           const active = category === c.key;
           const count = results?.[c.key]?.length ?? 0;
@@ -115,7 +129,11 @@ function SearchInner() {
             </ResultRow>
           ))}
           {category === "jobs" && items.map((j) => (
+<<<<<<< HEAD
             <ResultRow key={j.id} href={`/jobs/${j.id}`}>
+=======
+            <ResultRow key={j.id} href="/jobs">
+>>>>>>> origin/main
               <div style={{ fontWeight: 600, fontSize: 12.5 }}>{j.title}</div>
               <div style={{ color: C.muted, fontSize: 12 }}>{j.company}</div>
             </ResultRow>

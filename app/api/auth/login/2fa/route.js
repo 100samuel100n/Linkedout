@@ -7,7 +7,10 @@ import { throttle } from "@/lib/identity/throttle-http";
 
 // Step 2 of sign-in for accounts with two-factor on.
 export async function POST(request) {
+<<<<<<< HEAD
   { const { authInstallError } = await import("@/lib/distribution/gate.js"); const blocked = await authInstallError(request); if (blocked) return blocked; }
+=======
+>>>>>>> origin/main
   const b = await request.json().catch(() => ({}));
   const accountId = readChallenge(b.challenge);
   if (!accountId) return NextResponse.json({ error: "That sign-in expired. Please start again.", code: "CHALLENGE_EXPIRED" }, { status: 401 });

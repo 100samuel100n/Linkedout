@@ -24,8 +24,11 @@ const nextConfig = {
       { key: "Permissions-Policy", value: "camera=(self), microphone=(self), geolocation=(), payment=(self), usb=(), interest-cohort=()" },
       { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
       { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
+<<<<<<< HEAD
       // Nobody else may frame the site (stops look-alike pages that wrap the real login in an iframe). Not a full CSP.
       { key: "Content-Security-Policy", value: "frame-ancestors 'self'; base-uri 'self'; object-src 'none'" },
+=======
+>>>>>>> origin/main
     ];
     const noindexed = ["/messages", "/settings", "/notifications", "/profile", "/my-stories", "/my-stories/:path*", "/alerts", "/verify-employment", "/redeem-invite", "/login", "/signup", "/forgot-password", "/reset-password", "/verify-email", "/support", "/stories/new", "/circles/:slug/manage", "/companies/:id/business", "/admin/:path*", "/api/:path*"]
       .map((source) => ({ source, headers: noindex }));

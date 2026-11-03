@@ -8,7 +8,10 @@ import { throttle } from "@/lib/identity/throttle-http";
 const PSEUDONYM_RE = /^[a-zA-Z0-9_]{3,24}$/;
 
 export async function POST(request) {
+<<<<<<< HEAD
   { const { authInstallError } = await import("@/lib/distribution/gate.js"); const blocked = await authInstallError(request); if (blocked) return blocked; }
+=======
+>>>>>>> origin/main
   const body = await request.json().catch(() => null);
   const email = body?.email?.trim().toLowerCase();
   const password = body?.password;

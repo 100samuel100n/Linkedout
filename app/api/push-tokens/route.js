@@ -10,7 +10,10 @@ export async function POST(request) {
   const token = body?.token?.trim();
   if (!token) return NextResponse.json({ error: "token is required." }, { status: 400 });
 
+<<<<<<< HEAD
   if (token.startsWith("web:")) return NextResponse.json({ error: "Invalid token." }, { status: 400 });   // web subscriptions only via /api/push/web (validated)
+=======
+>>>>>>> origin/main
   await registerPushToken(accountId, token, body?.platform || null);
   return NextResponse.json({ ok: true });
 }
@@ -23,4 +26,8 @@ export async function DELETE(request) {
   if (!token) return NextResponse.json({ error: "token is required." }, { status: 400 });
   await unregisterPushToken(token);
   return NextResponse.json({ ok: true });
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

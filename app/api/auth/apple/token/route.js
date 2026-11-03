@@ -10,7 +10,10 @@ import { findOrCreateAppleAccount, signSession } from "@/lib/identity/service";
 // caveat as the web flow: see lib/oauth.js's verifyAppleIdentityToken and
 // the README's Apple Sign In section for exactly what's still needed.
 export async function POST(request) {
+<<<<<<< HEAD
   { const { authInstallError } = await import("@/lib/distribution/gate.js"); const blocked = await authInstallError(request); if (blocked) return blocked; }
+=======
+>>>>>>> origin/main
   if (process.env.APPLE_SIGNIN_ENABLED !== "true") return Response.json({ error: "Sign in with Apple is coming soon.", code: "APPLE_COMING_SOON" }, { status: 503 });
   const body = await request.json().catch(() => null);
   const identityToken = body?.identityToken;

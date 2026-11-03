@@ -7,6 +7,7 @@ import { ComposerProvider } from "./composer-provider";
 import Shell from "@/components/Shell";
 import { DialogProvider } from "@/components/Dialog";
 import KeyboardInsets from "@/components/KeyboardInsets";
+<<<<<<< HEAD
 import PwaClient from "@/components/PwaClient";
 import NativeFeel from "@/components/NativeFeel";
 import AppShellExtras from "@/components/AppShellExtras";
@@ -14,6 +15,12 @@ import AppShellExtras from "@/components/AppShellExtras";
 const SITE = (process.env.NEXT_PUBLIC_APP_URL || "http://linkedoutnetwork.com").replace(/\/$/, "");
 const DESC = "LinkedOut is where people tell the truth about work: layoffs, bad bosses, burnout, ghosting and salary reality. Read real stories, see what employees say about a company, and share yours, anonymously if you like.";
 export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", interactiveWidget: "resizes-content", themeColor: "#0B0E14" };
+=======
+
+const SITE = (process.env.NEXT_PUBLIC_APP_URL || "http://linkedoutnetwork.com").replace(/\/$/, "");
+const DESC = "LinkedOut is where people tell the truth about work: layoffs, bad bosses, burnout, ghosting and salary reality. Read real stories, see what employees say about a company, and share yours, anonymously if you like.";
+export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", interactiveWidget: "resizes-content" };
+>>>>>>> origin/main
 
 export const metadata = {
   metadataBase: new URL(SITE),
@@ -25,10 +32,13 @@ export const metadata = {
   openGraph: { type: "website", siteName: "LinkedOut", title: "LinkedOut: the truth about work", description: DESC, url: SITE },
   twitter: { card: "summary_large_image", title: "LinkedOut: the truth about work", description: DESC },
   robots: { index: true, follow: true },
+<<<<<<< HEAD
   // iPhone home-screen app: full screen, no Safari bar, own name under the icon
   appleWebApp: { capable: true, title: "LinkedOut", statusBarStyle: "black-translucent" },
   formatDetection: { telephone: false },
   icons: { apple: "/apple-icon.png" },
+=======
+>>>>>>> origin/main
   ...(process.env.GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION, other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined } } : {}),
 };
 const SITE_LD = [
@@ -53,14 +63,18 @@ const THEME_INIT_SCRIPT = `
 })();
 `;
 
+<<<<<<< HEAD
 // If the installed app already showed its launch animation in this session, don't paint the navy cover again on in-app reloads.
 const BOOT_SCRIPT = `try{document.documentElement.classList.add("lo-nosplash")}catch(e){}`; // no launch animation any more: never show the boot cover
 
+=======
+>>>>>>> origin/main
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full antialiased" data-theme="dark">
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+<<<<<<< HEAD
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_LD).replace(/</g, "\\u003c") }} />
       </head>
@@ -70,13 +84,22 @@ export default function RootLayout({ children }) {
         <NativeFeel />
         <KeyboardInsets />
         <PwaClient />
+=======
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_LD).replace(/</g, "\\u003c") }} />
+      </head>
+      <body className="min-h-full">
+        <KeyboardInsets />
+>>>>>>> origin/main
         <ThemeProvider>
           <DialogProvider>
           <AuthProvider>
             <NotificationsProvider>
               <PostsProvider>
                 <ComposerProvider>
+<<<<<<< HEAD
                   <AppShellExtras />
+=======
+>>>>>>> origin/main
                   <Shell>{children}</Shell>
                 </ComposerProvider>
               </PostsProvider>
@@ -87,4 +110,8 @@ export default function RootLayout({ children }) {
       </body>
     </html>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

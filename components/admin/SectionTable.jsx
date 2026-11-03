@@ -47,7 +47,10 @@ export default function SectionTable({ id, title }) {
     try {
       const out = await adminApi.post(`${id}/${encodeURIComponent(row.id)}/${action.id}`, body || {});
       if (out.url) window.open(out.url, "_blank", "noopener");
+<<<<<<< HEAD
       if (out.message) window.alert(out.message);
+=======
+>>>>>>> origin/main
       setPrompt(null); setForm(null); setVal(""); await load();
     } catch (e) { setErr(e.message); } finally { setBusy(false); }
   }

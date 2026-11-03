@@ -6,7 +6,10 @@ import { getAccountGate } from "@/lib/admin/enforce";
 
 // Swaps the one-time ticket from the native Google flow for a real session token.
 export async function POST(request) {
+<<<<<<< HEAD
   { const { authInstallError } = await import("@/lib/distribution/gate.js"); const blocked = await authInstallError(request); if (blocked) return blocked; }
+=======
+>>>>>>> origin/main
   const b = await request.json().catch(() => ({}));
   const accountId = takeExchangeTicket(b.code);
   if (!accountId) return NextResponse.json({ error: "That sign-in expired. Please try again." }, { status: 401 });

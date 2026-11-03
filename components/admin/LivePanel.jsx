@@ -51,9 +51,13 @@ export default function LivePanel() {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             <Chip icon={Monitor} label="Web" n={d?.web ?? 0} />
             <Chip icon={Smartphone} label="App" n={d?.app ?? 0} />
+<<<<<<< HEAD
             {(d?.other ?? 0) > 0 && <Chip icon={Globe} label="Other" n={d.other} />}
           </div>
           {d && d.total === 0 && d.diagnostics && <div style={{ fontSize: 12, color: C.muted, background: C.surface2, borderRadius: 10, padding: "8px 10px", lineHeight: 1.5 }}>Nobody counted. Heartbeat rows: {d.diagnostics.heartbeatRows}{d.diagnostics.newestHeartbeat ? `, newest ${since(d.diagnostics.newestHeartbeat)} ago` : ""}.{d.diagnostics.tableError ? ` Table error: ${d.diagnostics.tableError}` : ""}{d.diagnostics.lastWriteError ? ` Last write error: ${d.diagnostics.lastWriteError.message}` : ""}</div>}
+=======
+          </div>
+>>>>>>> origin/main
           {d?.countries?.length > 0 && (
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: C.muted, display: "flex", alignItems: "center", gap: 6 }}><Globe size={14} /> Where from</div>
