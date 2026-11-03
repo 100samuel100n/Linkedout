@@ -11,10 +11,7 @@ import { api } from "@/lib/api";
 import { useAuth } from "@/app/auth-provider";
 import CompanyReality from "@/components/stories/CompanyReality";
 import OfficialSection from "@/components/companies/OfficialSection";
-<<<<<<< HEAD
 import CompanyJobs from "@/components/companies/CompanyJobs";
-=======
->>>>>>> origin/main
 import Select from "@/components/ui/Select";
 
 const inputStyle = { background: C.surface2, border: `1px solid ${C.line}`, color: C.text, borderRadius: 8, padding: "8px 10px", fontSize: 12.5, width: "100%" };
@@ -240,10 +237,7 @@ export default function CompanyPageClient({ id, initialCompany = null, initialRe
       </div>
 
       <OfficialSection companyId={company.id} />
-<<<<<<< HEAD
       <CompanyJobs companyId={company.id} companyName={company.name} />
-=======
->>>>>>> origin/main
       <CompanyReality companyId={company.id} companyName={company.name} initialReality={initialReality} initialStories={initialStories} />
 
       <div style={{ ...monoFont, fontSize: 12, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginTop: 8 }}>Classic reviews, salaries and horror stories</div>

@@ -293,7 +293,6 @@ main table tbody tr { transition: background .12s ease; }
 
 /* iOS Safari: pad the page by the keyboard height published by components/KeyboardInsets.jsx */
 body { padding-bottom: var(--lo-kb, 0px); }
-<<<<<<< HEAD
 
 /* Home-screen app (PWA) polish: only applies when launched from the home screen, so the normal website is unchanged. */
 @media (display-mode: standalone) {
@@ -314,5 +313,3 @@ body { padding-bottom: var(--lo-kb, 0px); }
 }
 @keyframes lo-boot-out { to { opacity: 0; visibility: hidden; } }
 @keyframes lo-spin { to { transform: rotate(360deg); } }
-=======
->>>>>>> origin/main

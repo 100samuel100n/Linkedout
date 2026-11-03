@@ -4,11 +4,7 @@ import { C, displayFont } from "@/lib/theme";
 // "Android app on the way" notice. Once the app is live, set NEXT_PUBLIC_PLAY_STORE_URL to its
 // Google Play link and this turns into a "Get it on Google Play" button on every page it appears.
 // (Use Google's official badge artwork once you're live: https://play.google.com/intl/en_us/badges/)
-<<<<<<< HEAD
 const URL = process.env.NEXT_PUBLIC_PLAY_STORE_URL || "/install"; // no store listing: send people to the official install page
-=======
-const URL = process.env.NEXT_PUBLIC_PLAY_STORE_URL || "";
->>>>>>> origin/main
 
 function PlayGlyph({ size = 22 }) {
   return (
@@ -25,21 +21,13 @@ function PlayGlyph({ size = 22 }) {
 export default function PlayStoreSoon({ variant = "card", style }) {
   const live = !!URL;
   const Wrapper = live ? "a" : "div";
-<<<<<<< HEAD
   const link = live ? { href: URL, "aria-label": "How to install LinkedOut" } : { role: "note" };
-=======
-  const link = live ? { href: URL, target: "_blank", rel: "noopener noreferrer", "aria-label": "Get LinkedOut on Google Play" } : { role: "note" };
->>>>>>> origin/main
 
   if (variant === "line") {
     return (
       <Wrapper {...link} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12.5, color: C.muted, textDecoration: "none", ...style }}>
         <PlayGlyph size={16} />
-<<<<<<< HEAD
         <span>{live ? <b style={{ color: C.text }}>Install the LinkedOut app</b> : <>Android app <b style={{ color: C.text }}>coming soon</b> to Google Play</>}</span>
-=======
-        <span>{live ? <b style={{ color: C.text }}>Get the Android app on Google Play</b> : <>Android app <b style={{ color: C.text }}>coming soon</b> to Google Play</>}</span>
->>>>>>> origin/main
       </Wrapper>
     );
   }
@@ -49,13 +37,8 @@ export default function PlayStoreSoon({ variant = "card", style }) {
       <div style={{ width: 44, height: 44, borderRadius: 12, background: C.surface2, border: `1px solid ${C.line}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}><PlayGlyph size={24} /></div>
       <div style={{ minWidth: 0, flex: 1 }}>
         {!live && <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: ".1em", textTransform: "uppercase", color: C.mustard, marginBottom: 2 }}>Coming soon</div>}
-<<<<<<< HEAD
         <div style={{ ...displayFont, fontSize: 15.5, color: C.text, lineHeight: 1.25 }}>{live ? "Install LinkedOut" : "LinkedOut for Android"}</div>
         <div style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.45, marginTop: 2 }}>{live ? "Android app and iPhone web app. Download it from our own site." : "The app is on its way to Google Play. Use LinkedOut in your browser in the meantime."}</div>
-=======
-        <div style={{ ...displayFont, fontSize: 15.5, color: C.text, lineHeight: 1.25 }}>{live ? "Get LinkedOut on Google Play" : "LinkedOut for Android"}</div>
-        <div style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.45, marginTop: 2 }}>{live ? "Download the app and take your stories with you." : "The app is on its way to Google Play. Use LinkedOut in your browser in the meantime."}</div>
->>>>>>> origin/main
       </div>
     </Wrapper>
   );

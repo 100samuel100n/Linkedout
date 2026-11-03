@@ -12,10 +12,7 @@ import {
 } from "lucide-react";
 import { C, monoFont, displayFont, alpha } from "@/lib/theme";
 import { useAuth } from "@/app/auth-provider";
-<<<<<<< HEAD
 import { WebPushCard, AppLockCard } from "@/components/WebAppSettings";
-=======
->>>>>>> origin/main
 import QrCode from "@/components/QrCode";
 import { useDialog } from "@/components/Dialog";
 import { useTheme } from "@/app/theme-provider";
@@ -119,11 +116,7 @@ export default function SettingsPage() {
 
       {category === "account" && <AccountCategory key={JSON.stringify([user.pseudonym, user.realName, user.bio, user.country, user.accountType, user.interests])} user={user} refresh={refresh} />}
       {category === "security" && <SecurityCategory user={user} refresh={refresh} />}
-<<<<<<< HEAD
       {category === "notifications" && (<div className="flex flex-col gap-4"><WebPushCard /><NotificationsCategory /></div>)}
-=======
-      {category === "notifications" && <NotificationsCategory />}
->>>>>>> origin/main
       {category === "messaging" && <MessagingCategory />}
       {category === "sounds" && <SoundsCategory />}
       {category === "appearance" && <AppearanceCategory />}
@@ -289,10 +282,7 @@ function SecurityCategory({ user, refresh }) {
       <EmailPhoneSection user={user} refresh={refresh} />
       <IdentityVerificationSection user={user} refresh={refresh} />
       <ConnectedAccountsSection user={user} refresh={refresh} />
-<<<<<<< HEAD
       <AppLockCard />
-=======
->>>>>>> origin/main
     </div>
   );
 }
@@ -955,8 +945,4 @@ function MessagingCategory() {
       <div style={{ ...monoFont, fontSize: 12, color: C.muted, lineHeight: 1.6 }}>Messages are encrypted at rest and shown only between aliases. Notifications never include message text. Disappearing-message timers can be set per chat.</div>
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/main

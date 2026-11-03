@@ -8,7 +8,6 @@ export async function register() {
     catch (e) { console.error("[broadcast scheduler]", e.message); }
   }, 60 * 1000);
   globalThis.__loBroadcastTimer.unref?.();
-<<<<<<< HEAD
   // Distribution integrity: flush per-install counters and run detections (abnormal usage, scheduled look-alike scans). Every minute; cheap.
   if (!globalThis.__loDistTimer) {
     globalThis.__loDistTimer = setInterval(async () => {
@@ -25,6 +24,4 @@ export async function register() {
     }, 60 * 60 * 1000);
     globalThis.__loCompanyTimer.unref?.();
   }
-=======
->>>>>>> origin/main
 }

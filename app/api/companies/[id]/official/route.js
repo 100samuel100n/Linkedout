@@ -7,10 +7,7 @@ import { PROFILE_SECTIONS, FACT_KEYS } from "@/lib/stories/company-suite";
 import { notifyRoles } from "@/lib/stories/company-alerts";
 import { levelOf } from "@/lib/business-features";
 import { planOf } from "@/lib/stories/business";
-<<<<<<< HEAD
 import * as X from "@/lib/stories/company-extras";
-=======
->>>>>>> origin/main
 
 // Public, read-mostly. Everything here is COMPANY-AUTHORED and labelled that way by the UI ("Company says"),
 // kept apart from anonymous stories ("People report"). Verified companies only.
@@ -40,15 +37,11 @@ export async function GET(request, { params }) {
       questions: qs.map((q) => ({ id: q.id, question: q.question, answer: q.answer, ago: formatRelativeTime(q.answered_at) })),
       sections: PROFILE_SECTIONS.map(([k, label]) => ({ label, body: P[k]?.body })).filter((s) => s.body),
       facts: FACT_KEYS.map(([k, label]) => ({ label, value: P[`fact:${k}`]?.body, verified: !!P[`fact:${k}`]?.verified })).filter((f) => f.value),
-<<<<<<< HEAD
       showcase: show,
       events: levelOf(plan, "events") ? await X.publicEvents(id, v.key) : [],
       followers: levelOf(plan, "followers") ? { count: await X.followerCount(id), mine: !!(v.key && await contentDb.prepare("SELECT 1 x FROM company_followers WHERE company_id = ? AND anon_key = ?").get(id, v.key)) } : null,
       verifiedEmployees: levelOf(plan, "advocacy") ? await X.advocacyCount(id, c.name) : null,
       pulse: v.accountId ? await X.myPulse(v.accountId, id).catch(() => null) : null });
-=======
-      showcase: show });
->>>>>>> origin/main
   } catch (e) { return fail(e); }
 }
 
@@ -66,13 +59,10 @@ export async function POST(request, { params }) {
       else await contentDb.prepare("INSERT INTO company_interest (company_id, anon_key, created_at) VALUES (?,?,?) ON CONFLICT DO NOTHING").run(id, v.key, new Date().toISOString());
       return json({ mine: !had });
     }
-<<<<<<< HEAD
     if (b.action === "follow") return json(await X.followToggle(v.key, id));
     if (b.action === "rsvp") return json(await X.rsvp(v.key, b));
     if (b.action === "ama") return json(await X.askAma(v.key, id, b));
     if (b.action === "pulse") return json(await X.answerPulse(v.accountId, id, b));
-=======
->>>>>>> origin/main
     if (b.action === "ask") {
       const text = redactFields({ q: String(b.question || "").trim().slice(0, 400) }).values.q;
       if (text.length < 10) throw new StoryError("Ask a full question, at least a sentence.");

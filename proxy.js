@@ -24,11 +24,7 @@ async function refresh(origin) {
 }
 const ipOf = (h) => (h.get("fly-client-ip") || h.get("cf-connecting-ip") || (h.get("x-forwarded-for") || "").split(",")[0] || h.get("x-real-ip") || "").trim();
 const report = (origin, body) => { fetch(`${origin}/api/internal/waf-report`, { method: "POST", headers: { "x-sec-key": internalKey(), "content-type": "application/json" }, body: JSON.stringify(body) }).catch(() => {}); };
-<<<<<<< HEAD
 const deny = (status, msg, code) => new NextResponse(JSON.stringify({ error: msg, ...(code ? { code } : {}) }), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
-=======
-const deny = (status, msg) => new NextResponse(JSON.stringify({ error: msg }), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
->>>>>>> origin/main
 
 export async function proxy(request) {
   const url = request.nextUrl, path = url.pathname, h = request.headers;
@@ -42,13 +38,8 @@ export async function proxy(request) {
   if (process.env.SECURITY_PROXY === "off") return NextResponse.next();
 
   const origin = url.origin, ip = ipOf(h), country = (h.get("cf-ipcountry") || h.get("x-vercel-ip-country") || "").toUpperCase();
-<<<<<<< HEAD
   if (Date.now() - cache.at > 5000) { if (cache.at === 0) await refresh(origin); else refresh(origin); }
   const { rules, tokens, allow, attackMode, dist } = cache.data;
-=======
-  if (Date.now() - cache.at > 15000) { if (cache.at === 0) await refresh(origin); else refresh(origin); }
-  const { rules, tokens, allow, attackMode } = cache.data;
->>>>>>> origin/main
   const trusted = ip && allow.includes(ip);
 
   // Flood limit per IP across all routes. Normal use is far below this; "under attack" mode tightens it and
@@ -61,7 +52,6 @@ export async function proxy(request) {
     if (attackMode && !ua) return deny(403, "Request blocked.");
   }
 
-<<<<<<< HEAD
   // Direct-distribution gate for the native app (needs no database: the lists come from the cached blocklist payload).
   //  * a revoked install is refused with a code the app understands (it re-registers)
   //  * in "enforce" mode, native calls without an install identity are refused, except the endpoints used to obtain one
@@ -82,8 +72,6 @@ export async function proxy(request) {
     }
   }
 
-=======
->>>>>>> origin/main
   // Honeytoken presented anywhere in the URL or common credential headers: decoys nobody legitimate holds.
   if (!trusted && tokens.length) {
     const hay = `${url.search} ${h.get("authorization") || ""} ${h.get("x-api-key") || ""} ${h.get("cookie") || ""}`;

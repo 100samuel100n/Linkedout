@@ -13,19 +13,12 @@ const inp = { background: C.surface2, border: `1px solid ${C.line}`, color: C.te
 
 export default function OfficialSection({ companyId }) {
   const { user } = useAuth(); const [d, setD] = useState(null); const [q, setQ] = useState(""); const [msg, setMsg] = useState(null); const [mine, setMine] = useState(false);
-<<<<<<< HEAD
   useEffect(() => { api.companyOfficial(companyId).then((x) => { setD(x); setMine(!!x.talentInterest?.mine); setFol(x.followers?.mine ?? null); }).catch(() => {}); }, [companyId]);
-=======
-  useEffect(() => { api.companyOfficial(companyId).then((x) => { setD(x); setMine(!!x.talentInterest?.mine); }).catch(() => {}); }, [companyId]);
->>>>>>> origin/main
   if (!d || !d.verified) return null;
   const has = d.faq.length || d.announcements.length || d.questions.length || d.sections.length || d.facts.length || d.showcase.length || d.signals.health || d.signals.response || d.signals.badges.length;
   async function ask() { try { await api.companyOfficialDo(companyId, { action: "ask", question: q }); setQ(""); setMsg("Sent. The company can answer publicly."); } catch (e) { setMsg(e.message); } }
   async function interest() { try { const r = await api.companyOfficialDo(companyId, { action: "interest" }); setMine(r.mine); } catch (e) { setMsg(e.message); } }
-<<<<<<< HEAD
   async function act(body, after) { try { const r = await api.companyOfficialDo(companyId, body); after?.(r); } catch (e) { setMsg(e.message); } }
-=======
->>>>>>> origin/main
   return (
     <section className="flex flex-col gap-3" aria-label="What the company says">
       <div className="flex items-center gap-2 flex-wrap"><h2 style={{ margin: 0, fontSize: 18, fontWeight: 740, color: C.text }}>Company says</h2><Tag>Written by the company</Tag>
@@ -54,7 +47,6 @@ export default function OfficialSection({ companyId }) {
         {d.talentInterest?.enabled && user && <div><button className="lo-btn lo-btn-ghost lo-btn-sm" onClick={interest}>{mine ? "✓ You're interested in working here (tap to undo)" : "Interested in working here"}</button><div style={{ fontSize: 12, color: C.muted }}>The company sees only a total once at least 5 people have said so, never who.</div></div>}
         {msg && <div style={{ fontSize: 13, color: C.text2 }}>{msg}</div>}
       </div>
-<<<<<<< HEAD
       {(d.followers || d.verifiedEmployees != null) && <div className="flex items-center gap-3 flex-wrap" style={{ fontSize: 13.5, color: C.text2 }}>
         {d.followers && user && <button className="lo-btn lo-btn-ghost lo-btn-sm" onClick={() => act({ action: "follow" }, (r) => setFol(r.following))}>{fol ? "✓ Following (tap to unfollow)" : "Follow for updates and openings"}</button>}
         {d.followers?.count != null && <span>{d.followers.count} followers</span>}{d.verifiedEmployees != null && <span><BadgeCheck size={13} color={C.green} style={{ display: "inline" }} /> {d.verifiedEmployees} verified employees on LinkedOut</span>}</div>}
@@ -68,8 +60,6 @@ export default function OfficialSection({ companyId }) {
         <div style={{ fontSize: 12.5, color: C.muted }}>Your answers are anonymous and only shown as totals once 8 people have answered. The company can't see who took part.</div>
         {d.pulse.questions.map((q, i) => <div key={i} style={{ fontSize: 14, color: C.text }}>{q}<div className="flex gap-1 mt-1">{[1, 2, 3, 4, 5].map((n) => <button key={n} onClick={() => setPr({ ...pr, [i]: n })} className="lo-btn lo-btn-sm" style={{ border: `1px solid ${C.line}`, background: pr[i] === n ? C.corpblue : "transparent", color: pr[i] === n ? "#fff" : C.text2 }}>{n}</button>)}</div></div>)}
         <div><button className="lo-btn lo-btn-primary lo-btn-sm" disabled={d.pulse.questions.some((_, i) => !pr[i])} onClick={() => act({ action: "pulse", pulseId: d.pulse.id, answers: d.pulse.questions.map((_, i) => pr[i]) }, () => { setD({ ...d, pulse: { ...d.pulse, answered: true } }); setMsg("Thank you."); })}>Submit anonymously</button></div></div>}
-=======
->>>>>>> origin/main
       {has && <div style={{ fontSize: 12.5, color: C.muted }}>Below: what people report. Anonymous stories are never edited, hidden or ranked by the company.</div>}
     </section>
   );

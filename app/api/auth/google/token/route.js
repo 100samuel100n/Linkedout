@@ -12,10 +12,7 @@ import { getAccountGate } from "@/lib/admin/enforce";
 // client stores the resulting session token itself, exactly like
 // email/password signup already does.
 export async function POST(request) {
-<<<<<<< HEAD
   { const { authInstallError } = await import("@/lib/distribution/gate.js"); const blocked = await authInstallError(request); if (blocked) return blocked; }
-=======
->>>>>>> origin/main
   const body = await request.json().catch(() => null);
   const idToken = body?.idToken;
   if (!idToken) return NextResponse.json({ error: "Missing idToken." }, { status: 400 });

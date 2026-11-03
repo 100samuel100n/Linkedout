@@ -13,11 +13,7 @@ function Report({ id }) {
   if (err) return <ErrorNote>{err}</ErrorNote>;
   if (!r) return <Loading variant="cards" />;
   return (
-<<<<<<< HEAD
     <div style={{ maxWidth: 760, margin: "0 auto", padding: 24 }}>
-=======
-    <div style={{ maxWidth: 760, margin: "0 auto" }}>
->>>>>>> origin/main
       <h1 style={{ fontSize: 24, margin: "0 0 4px" }}>{r.company}: reputation report</h1>
       <div style={{ opacity: 0.7, marginBottom: 16 }}>{r.from} to {r.to} · LinkedOut</div>
       <ReportBody r={r} />

@@ -9,24 +9,15 @@ import { throttle } from "@/lib/identity/throttle-http";
 export async function POST(request) {
   const accountId = await getCurrentAccountId();
   if (!accountId) return NextResponse.json({ ok: false }, { status: 401 });
-<<<<<<< HEAD
   // Throttling must never be the reason presence stops: if the limiter itself errors, carry on.
   const limited = await throttle(request, [["email", accountId, "presence", { max: 12, windowMs: 60 * 1000, label: "presence pings" }]]).catch(() => null);
-=======
-  const limited = await throttle(request, [["email", accountId, "presence", { max: 12, windowMs: 60 * 1000, label: "presence pings" }]]);
->>>>>>> origin/main
   if (limited) return NextResponse.json({ ok: true });   // too chatty: quietly ignore
   const b = await request.json().catch(() => ({}));
   // The app authenticates with a Bearer token and the site with a cookie, so that is a reliable fallback.
   const platform = b.platform === "app" || b.platform === "web" ? b.platform : request.headers.get("authorization") ? "app" : "web";
-<<<<<<< HEAD
   let geo = null; try { geo = resolveGeo(request.headers); } catch { /* geo is optional */ }
   try {
     if (b.state === "offline") await goOffline(accountId, platform); else await heartbeat(accountId, { platform, geo });
   } catch (e) { return NextResponse.json({ ok: false, error: "presence unavailable" }, { status: 503 }); }   // logged inside heartbeat()
-=======
-  if (b.state === "offline") await goOffline(accountId, platform);
-  else await heartbeat(accountId, { platform, geo: resolveGeo(request.headers) });
->>>>>>> origin/main
   return NextResponse.json({ ok: true });
 }

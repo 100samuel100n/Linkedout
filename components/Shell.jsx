@@ -19,10 +19,7 @@ import { api } from "@/lib/api";
 import { useDialog } from "@/components/Dialog";
 import LegalLinks from "@/components/LegalLinks";
 import PlayStoreSoon from "@/components/PlayStoreSoon";
-<<<<<<< HEAD
 import { useRemoteFlags } from "@/components/useRemoteFlags";
-=======
->>>>>>> origin/main
 import PresenceBeacon from "@/components/PresenceBeacon";
 import Logo from "@/components/Logo";
 
@@ -41,12 +38,8 @@ function useConfirmLogout() {
 // Jobs is paused (not deleted) — flip this back to true to bring it back
 // in both the sidebar/mobile tabs below and the page itself (see
 // app/jobs/page.js, which shows a "paused" notice while this is false).
-<<<<<<< HEAD
 // Jobs visibility is now a runtime switch (Admin -> Feed Controls -> Jobs, or JOBS_ENABLED=false on the server).
 const JOBS_ENABLED = true; // only the build-time default; see useRemoteFlags
-=======
-const JOBS_ENABLED = false;
->>>>>>> origin/main
 
 const NAV_ITEMS = [
   { href: "/", label: "Stories", icon: Home },
@@ -187,10 +180,7 @@ function useHomeClick(pathname) {
 }
 
 function DesktopSidebar({ pathname, liveRoomCount }) {
-<<<<<<< HEAD
   const { jobsEnabled } = useRemoteFlags();
-=======
->>>>>>> origin/main
   const { user, loading } = useAuth();
   const composer = useComposer();
   const onHome = useHomeClick(pathname);
@@ -221,11 +211,7 @@ function DesktopSidebar({ pathname, liveRoomCount }) {
       {/* The nav grows with the product; it scrolls on its own (scrollbar hidden, soft fade at the edges)
           so the logo, primary action and account menu always stay in view. */}
       <nav aria-label="Primary" className="lo-side-scroll flex flex-col gap-1 xl:items-stretch items-center" style={{ flex: 1, minHeight: 0, marginTop: 6 }}>
-<<<<<<< HEAD
         {NAV_ITEMS.filter((t) => t.href !== "/jobs" || jobsEnabled).map((t) => {
-=======
-        {NAV_ITEMS.map((t) => {
->>>>>>> origin/main
           const Icon = t.icon;
           const active = t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
           return (
@@ -472,11 +458,8 @@ export default function Shell({ children }) {
   // The admin dashboard is its own app: no website chrome (sidebar, tabs,
   // composer, right panel) around it. Hooks above still run, so order is stable.
   if (pathname?.startsWith("/admin")) return <><OfflineBanner />{children}</>;
-<<<<<<< HEAD
   // The company Command Center is a workspace of its own: no feed navigation around it (see components/company-suite/Dashboard.jsx).
   if (/^\/companies\/[^/]+\/(dashboard|report)/.test(pathname || "")) return <><OfflineBanner /><PresenceBeacon />{children}</>;
-=======
->>>>>>> origin/main
 
   return (
     <div style={{ background: C.ink, minHeight: "100vh", color: C.text }} className="w-full">
