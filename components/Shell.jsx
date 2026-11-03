@@ -368,8 +368,12 @@ function MobileHeader({ pathname, liveRoomCount }) {
   const onHome = useHomeClick(pathname);
 
   return (
-    <div style={{ borderBottom: `1px solid ${C.line}`, background: C.ink }} className="sticky top-0 z-30 md:hidden">
-      <div className="max-w-3xl mx-auto flex items-center justify-between px-4 py-3">
+    <>
+    {/* Pinned like a native app bar. It was `sticky`, which iOS Safari / the home-screen app lets slide under the status bar and
+        jiggle with the rubber-band overscroll. Now it is `fixed` to the top (its own padding covers the notch / status bar), promoted to
+        its own layer, and a spacer of the same height keeps the page content from sliding underneath it. */}
+    <div className="lo-topbar md:hidden" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 60, paddingTop: "env(safe-area-inset-top, 0px)", borderBottom: `1px solid ${C.line}`, background: C.ink, transform: "translate3d(0,0,0)", WebkitTransform: "translate3d(0,0,0)", backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", willChange: "transform" }}>
+      <div className="max-w-3xl mx-auto flex items-center justify-between px-4" style={{ height: 62 }}>
         <Link href="/" onClick={onHome} className="flex items-center gap-2 lo-tap" style={{ ...displayFont, fontSize: 21, fontWeight: 800, color: C.text, textDecoration: "none" }}>
           <Logo size={32} />
           <span>Linkedout</span>
@@ -402,6 +406,8 @@ function MobileHeader({ pathname, liveRoomCount }) {
         </div>
       </div>
     </div>
+    <div className="lo-topbar-spacer md:hidden" aria-hidden="true" style={{ height: 63 }} />
+    </>
   );
 }
 
