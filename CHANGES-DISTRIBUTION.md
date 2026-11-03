@@ -1,0 +1,4 @@
+# Direct distribution + app integrity (this round)
+Read `docs/DISTRIBUTION.md` first. New: `lib/distribution/*`, `app/api/distribution/*`, `/install`, `/dl/[channel]`, `/.well-known/linkedout-distribution.json`, PWA (manifest, `public/sw.js`, `PwaClient`), 9 admin sections under "Distribution", `lib/flags.js` (JOBS_ENABLED), `scripts/dist-*.mjs`, `distribution/` templates, `tests/`.
+Changed: `lib/session.js` (install-bound tokens), `proxy.js` (revoked / required / min-version gate), `lib/security/core.js` (7 alert types + playbooks + blocklist payload), `lib/admin/{service,roles,permissions-catalog,systems}.js`, native-auth routes (install proof in enforce mode), `/api/jobs/*` + `/jobs` (pausable), `app/layout.js`, `app/manifest.js`, `next.config.mjs` (frame-ancestors), `assetlinks`, `instrumentation.js`, `PlayStoreSoon`, `Shell`, `search`.
+Default behaviour is unchanged until you set mode to `enforce`: it ships in `monitor`.

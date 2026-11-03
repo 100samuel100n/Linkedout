@@ -1,0 +1,2 @@
+export const metadata = { title: "Plans and pricing", description: "OUT is free to read and tell. OUT+ and OUT PRO add story tools, company insight and analytics.", alternates: { canonical: "/premium" }, openGraph: { title: "Plans and pricing", description: "OUT is free to read and tell. OUT+ and OUT PRO add story tools, company insight and analytics.", type: "website" } };
+export default function Layout({ children }) { return children; }

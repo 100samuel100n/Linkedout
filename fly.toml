@@ -1,0 +1,42 @@
+# Fly.io config. Rename `app` after `fly launch` generates a unique one
+# (or edit it here first — see DEPLOYMENT.md).
+#
+# Safe to run more than one machine now: both databases are PostgreSQL
+# (a separate Fly Postgres app or any managed Postgres — see
+# DEPLOYMENT.md) and media/avatars/documents are Backblaze B2 object
+# storage, not local files. Nothing here is pinned to a single instance
+# anymore.
+app = "linkedout-app"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3000"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 512
+
+# Canary deploys: a new release starts on one machine and must pass health checks before the rest are replaced,
+# so a bad build can't take every machine down at once.
+[deploy]
+  strategy = "canary"
+
+[[http_service.checks]]
+  grace_period = "25s"
+  interval = "30s"
+  method = "GET"
+  timeout = "5s"
+  path = "/api/health"

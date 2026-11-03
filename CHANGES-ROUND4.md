@@ -1,0 +1,11 @@
+# Round 4 (web + native)
+- Feed (web): "What actually happened today..." box is now a search bar (Enter -> /search?q=); Post button and type chips still open the composer. Removed the top search icon and top avatar on mobile; dead Chronological / Most Chaotic filters removed.
+- Security: password change, deactivate and delete require an authenticator/recovery code when 2FA is on (server-enforced via requireMfa in lib/identity/mfa.js; clients prompt). Web logout now confirms like native.
+- "Download your data" paused on web + native (route and component kept to bring it back).
+- Avatar: each upload gets a fresh storage key (the old fixed key kept the old image cached), old file removed, instant preview + toast + error note.
+- Legal: /terms, /privacy (web) and a Legal screen (native) from one shared text (lib/legal-content.js, mirrored in native lib/). States independence, secure handling, plain-language terms. Linked from signup, login, settings, side panel, mobile footer.
+- Brand: every "LinkedIn" mention removed (UI, AI prompts, seeds, docs). Only the reserved-company-name block-list in lib/content/company-registry.js still names it.
+- Native: "Danger Zone" renamed Delete Account (calm styling), deactivation no longer sticks on "deactivating...", splash door is hinged (perspective rotateY on a left-edge origin) and the kick is a real leg (thigh/knee/shin/shoe), logo tinted for light and dark, tagline removed, message analytics matches web.
+- Logo: web swaps a navy twin in light mode (public/logo-mark-dark.png).
+- Sync: web and native both re-pull the account on focus and every 30s, silently (no loading flash, no sign-out on a network blip).
+- AI provider layer (lib/ai.js): AI_PROVIDER=anthropic|openai|gemini (openai also covers Groq, OpenRouter, Together, Mistral, DeepSeek, Ollama via OPENAI_BASE_URL).

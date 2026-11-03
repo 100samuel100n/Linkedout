@@ -1,0 +1,13 @@
+# Your OWN F-Droid repository (not the main F-Droid.org one, which builds from source and would not carry this exact signed APK).
+# Put this file at metadata/com.linkedoutnetwork.linkedout.yml in an `fdroidserver` repo directory, copy each release APK into repo/,
+# run `fdroid update --create-metadata`, and host the repo/ folder on any static host. Publish the repo URL and its fingerprint
+# (printed by `fdroid update`) in Admin -> Channels & Mirrors (type: F-Droid) so they land in the signed manifest.
+Categories: [Internet]
+License: Proprietary
+WebSite: https://linkedoutnetwork.com
+Name: LinkedOut
+Summary: The truth about work.
+Description: |-
+  LinkedOut, installed from the official repository. Every release is signed with the same key as the APK on linkedoutnetwork.com.
+AutoUpdateMode: None
+UpdateCheckMode: None

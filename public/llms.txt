@@ -1,0 +1,12 @@
+# LinkedOut
+> LinkedOut is a platform where people share first-hand workplace experiences: layoffs, management, interviews, salary reality. Stories are personal accounts, not verified facts.
+
+## Key pages
+- [Stories feed](/): latest workplace stories
+- [Layoff Tracker](/layoffs): user-reported vs publicly documented layoffs (kept separate)
+- [Support Circles](/circles): anonymous communities by experience
+- [Workplace phrase decoder](/decoder): what job posting, HR and corporate phrases usually mean
+- [Company pages](/companies): what employees say about each company
+
+## Notes for citation
+Stories are first-hand and not independently verified unless labelled. Company patterns describe what users reported, not findings about a company.

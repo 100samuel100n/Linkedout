@@ -1,0 +1,8 @@
+# Zapstore (Nostr-based app store). Publish with:  zapstore publish   (https://zapstore.dev). Sign with YOUR Nostr key and
+# publish the npub in the signed manifest (Admin -> Channels & Mirrors -> fingerprint) and on your social profiles.
+name: LinkedOut
+description: The truth about work.
+repository: https://github.com/YOUR-ORG/linkedout-native
+website: https://linkedoutnetwork.com
+release_source: https://linkedoutnetwork.com/dl/apk
+android_package: com.linkedoutnetwork.linkedout
